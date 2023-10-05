@@ -40,10 +40,12 @@ class ImageComparer:
             # what the hell does this do. 
             matches_mask = mask.ravel().tolist()
             h, w = self.image.shape[:2]
-            pts = np.float32([[0, 0], [0, h-1], [w-1, h-1], [w-1, 0]]).reshape(-1, 1, 2)
+            pts = np.float32([[0, 0], [0, h], [w, h], [w, 0]]).reshape(-1, 1, 2)
             dst = cv2.perspectiveTransform(pts, matrix)
-            homography = cv2.polylines(grayframe, [np.int32(dst)], True, (0, 255, 0), 3)
+            homography = cv2.polylines(frame, [np.int32(dst)], True, (0, 255, 0), 3)
             return homography
+        
+        return frame
 
 
 
